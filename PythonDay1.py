@@ -97,3 +97,9 @@ def renameColumns(students: pd.DataFrame) -> pd.DataFrame:
 # level: For DataFrames with multi-level index, level from which the labels should be renamed.
 
 # errors: If 'raise', an error is raised if you try to rename an item that doesn't exist. If set to 'ignore', any failure to rename items will be ignored.
+
+
+#Data Type:
+def changeDatatype(students: pd.DataFrame) -> pd.DataFrame:
+    students['grade'] = students['grade'].astype(int)
+    return students
