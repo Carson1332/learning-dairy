@@ -10,7 +10,7 @@
 # - Get the number of elements: len(s), s.size
 
 
-Function: (Create New dataframe)
+# Function: (Create New dataframe)
 from typing import List
 import pandas as pd
 
@@ -19,7 +19,7 @@ def createDataframe(student_data: List[List[int]]) -> pd.DataFrame:
     df = pd.DataFrame(student_data, columns=columns)
     return df
 
-Function: (Create New dataframe)
+# Function: (Create New dataframe)
 import pandas as pd
 
 def getDataframeSize(players: pd.DataFrame) -> List[int]:
