@@ -24,5 +24,8 @@ import pandas as pd
 
 def getDataframeSize(players: pd.DataFrame) -> List[int]:
     return [players.shape[0] , players.shape[1]]
+# Select Output Rows
+def selectFirstRows(employees: pd.DataFrame) -> pd.DataFrame:
+    return employees.head(3)
 
 
