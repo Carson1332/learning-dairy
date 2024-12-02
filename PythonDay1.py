@@ -103,3 +103,20 @@ def renameColumns(students: pd.DataFrame) -> pd.DataFrame:
 def changeDatatype(students: pd.DataFrame) -> pd.DataFrame:
     students['grade'] = students['grade'].astype(int)
     return students
+
+#Replace Null to 0
+def fillMissingValues(products: pd.DataFrame) -> pd.DataFrame:
+    products['quantity'] = products['quantity'].fillna(0, inplace=False)
+    return products
+
+#Concat table together axis = 0, by row, '1' by column
+def concatenateTables(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
+    return pd.concat([df1,df2])
+
+
+#Complete pivot table with Sorting:
+def pivotTable(weather: pd.DataFrame) -> pd.DataFrame:
+    ans = weather.pivot(index='month', columns='city', values='temperature')
+    month_order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    ans = ans.reindex(month_order)
+    return ans
