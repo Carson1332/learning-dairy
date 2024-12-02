@@ -1,3 +1,6 @@
+# Based on Leetcode https://leetcode.com/studyplan/introduction-to-pandas/
+
+
 # Contents:
 # Get the number of rows, columns, and elements in pandas.DataFrame
 # - Display the number of rows, columns, etc.: df.info()
@@ -120,3 +123,13 @@ def pivotTable(weather: pd.DataFrame) -> pd.DataFrame:
     month_order = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     ans = ans.reindex(month_order)
     return ans
+
+#Reshape table: melt
+def meltTable(report: pd.DataFrame) -> pd.DataFrame:
+    report = report.melt(
+        id_vars=["product"],
+        value_vars=["quarter_1", "quarter_2", "quarter_3", "quarter_4"],
+        var_name="quarter",
+        value_name="sales",
+    )
+    return report
