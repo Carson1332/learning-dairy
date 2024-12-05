@@ -45,13 +45,6 @@ From
     Sales s
 JOIn Product p on s.product_id = p.product_id
 
--- Not In 
-SELECT customer_id, COUNT(v.visit_id) as count_no_trans 
-FROM Visits v
-LEFT JOIN Transactions t ON v.visit_id = t.visit_id
-WHERE transaction_id IS NULL
-GROUP BY customer_id
-
 -- Input: 
 -- Visits
 -- +----------+-------------+
@@ -90,3 +83,50 @@ GROUP BY customer_id
 -- Customer with id = 54 visited the mall three times. During 2 visits they did not make any transactions, and during one visit they made 3 transactions.
 -- Customer with id = 96 visited the mall once and did not make any transactions.
 
+-- method 1: 
+-- left join
+SELECT customer_id, COUNT(v.visit_id) as count_no_trans 
+FROM Visits v
+LEFT JOIN Transactions t ON v.visit_id = t.visit_id
+WHERE transaction_id IS NULL
+GROUP BY customer_id
+
+-- method 2: Not in 
+SELECT customer_id, COUNT(visit_id) as count_no_trans 
+FROM Visits
+WHERE visit_id NOT IN (
+	SELECT visit_id FROM Transactions
+	)
+GROUP BY customer_id
+
+-- method 3: Not Exist
+SELECT customer_id, COUNT(visit_id) as count_no_trans 
+FROM Visits v
+WHERE NOT EXISTS (
+	SELECT visit_id FROM Transactions t 
+	WHERE t.visit_id = v.visit_id
+	)
+GROUP BY customer_id
+
+-- Input: 
+-- Weather table:
+-- +----+------------+-------------+
+-- | id | recordDate | temperature |
+-- +----+------------+-------------+
+-- | 1  | 2015-01-01 | 10          |
+-- | 2  | 2015-01-02 | 25          |
+-- | 3  | 2015-01-03 | 20          |
+-- | 4  | 2015-01-04 | 30          |
+-- +----+------------+-------------+
+-- Output: 
+-- +----+
+-- | id |
+-- +----+
+-- | 2  |
+-- | 4  |
+-- +----+
+     
+-- Datediff 
+SELECT w1.id
+FROM Weather w1, Weather w2
+WHERE DATEDIFF(w1.recordDate, w2.recordDate) = 1 AND w1.temperature > w2.temperature;
